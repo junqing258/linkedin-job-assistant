@@ -1,0 +1,42 @@
+/* LinkedIn Recruiter Assistant 内容脚本样式 */
+
+#linkedin-recruiter-assistant {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  z-index: 10000;
+}
+
+.assistant-panel {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.assistant-header {
+  background: linear-gradient(135deg, #0073b1 0%, #005885 100%);
+  color: white;
+}
+
+.assistant-content {
+  background: white;
+}
+
+#assistant-input:focus {
+  outline: none;
+  border-color: #0073b1;
+  box-shadow: 0 0 0 3px rgba(0, 115, 177, 0.1);
+}
+
+#assistant-optimize:hover {
+  background: #005885;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .assistant-panel {
+    width: 300px;
+    right: 10px;
+    top: 10px;
+  }
+}

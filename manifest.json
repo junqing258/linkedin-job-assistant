@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn Recruiter Assistant",
+  "version": "1.0.0",
+  "description": "基于LLM的LinkedIn Recruiter搜索优化工具",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*.linkedin.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.linkedin.com/recruiter/*"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "LinkedIn Recruiter Assistant"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["injected.js"],
+      "matches": ["https://*.linkedin.com/*"]
+    }
+  ]
+}
