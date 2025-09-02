@@ -1,8 +1,8 @@
 // 后台脚本 - 处理插件的后台逻辑
 // 注意：这是一个Service Worker，需要保持简单和兼容性
 
-import defaultConfig from "@/services/config";
-import LLMService from "@/services/llmService";
+import defaultConfig from "@/background/config";
+import LLMService from "@/background/llmService";
 
 
 console.log('LinkedIn Recruiter Assistant 后台脚本已启动');

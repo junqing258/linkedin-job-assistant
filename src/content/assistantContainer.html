@@ -1,4 +1,4 @@
-<div class="assistant-panel" style="
+<div id="assistant-panel" class="assistant-panel" style="
         position: fixed;
         top: 20px;
         right: 20px;
@@ -8,16 +8,30 @@
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         z-index: 10000;
+        cursor: move;
+        user-select: none;
       ">
-  <div class="assistant-header" style="
+  <div class="assistant-header drag-handle" style="
           padding: 16px;
           border-bottom: 1px solid #eee;
           background: #f8f9fa;
           border-radius: 8px 8px 0 0;
+          cursor: grab;
         ">
-    <h3 style="margin: 0; color: #333; font-size: 16px;">
-      🤖 LinkedIn Recruiter Assistant
-    </h3>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="margin: 0; color: #333; font-size: 16px;">
+        LinkedIn Recruiter Assistant
+      </h3>
+      <div class="drag-indicator" style="
+              width: 20px;
+              height: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #666;
+              font-size: 12px;
+            ">⋮⋮</div>
+    </div>
   </div>
   <div class="assistant-content" style="padding: 16px;">
     <div class="input-group" style="margin-bottom: 12px;">

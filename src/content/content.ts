@@ -1,14 +1,14 @@
-import LinkedInService from '@/services/linkedinService';
+import LinkedInService from '@/content/linkedinService';
 
 console.log('LinkedIn Recruiter Assistant 已加载');
 
 // 等待页面加载完成
 function waitForPageLoad(): Promise<void> {
   return new Promise((resolve) => {
-    if (document.readyState === 'complete') {
+    if (document.readyState === 'interactive') {
       resolve();
     } else {
-      window.addEventListener('load', () => resolve());
+      document.addEventListener('DOMContentLoaded', () => resolve());
     }
   });
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useConfigStore } from "@/store/configStore";
+import { useConfigStore } from "./store/configStore";
 import ConfigPanel from "./components/ConfigPanel";
 import SearchOptimizer from "./components/SearchOptimizer.tsx";
 import CandidateRanker from "./components/CandidateRanker.tsx";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useConfigStore } from '@/store/configStore';
+import { useConfigStore } from '../store/configStore';
 
 const ConfigPanel: React.FC = () => {
   const { config, updateConfig, saveConfig, loadConfig, isLoading, error } = useConfigStore();

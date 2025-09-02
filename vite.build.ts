@@ -37,7 +37,7 @@ const getBuildConfig = (input: Record<string, string>) => defineConfig({
     assetsInlineLimit: 0,
     // 为Service Worker优化构建
     target: 'es2015', // 使用较低的目标版本确保兼容性
-    minify: 'terser',
+    minify: false, //  'terser',
     terserOptions: {
       // 保留Service Worker中的console.log
       compress: {

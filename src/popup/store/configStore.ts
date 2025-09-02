@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { PluginConfig } from '@/types';
-import defaultConfig from '@/services/config';
+import defaultConfig from '@/background/config';
 
 interface ConfigState {
   config: PluginConfig;
