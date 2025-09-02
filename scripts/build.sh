@@ -28,23 +28,18 @@ if [ -d "dist" ]; then
     
     # 运行资源复制脚本
     echo "🎨 复制资源文件..."
-    if [ -f "scripts/copy-assets.sh" ]; then
-        ./scripts/copy-assets.sh
+    # 确保图标目录存在
+    if [ ! -d "dist/icons" ]; then
+        echo "🎨 复制图标文件..."
+        cp -r icons dist/
+    fi
+    
+    # 确保CSS文件被复制
+    echo "🎨 复制CSS文件..."
+    if [ -f "src/content/content.css" ]; then
+        cp src/content/content.css dist/ 2>/dev/null || echo "⚠️  content.css 复制失败"
     else
-        echo "⚠️  资源复制脚本未找到，手动复制..."
-        # 确保图标目录存在
-        if [ ! -d "dist/icons" ]; then
-            echo "🎨 复制图标文件..."
-            cp -r icons dist/
-        fi
-        
-        # 确保CSS文件被复制
-        echo "🎨 复制CSS文件..."
-        if [ -f "src/content/content.css" ]; then
-            cp src/content/content.css dist/ 2>/dev/null || echo "⚠️  content.css 复制失败"
-        else
-            echo "❌ src/content/content.css 文件不存在"
-        fi
+        echo "❌ src/content/content.css 文件不存在"
     fi
     
     # 修复CSS文件命名问题
@@ -63,6 +58,7 @@ if [ -d "dist" ]; then
     echo "🎨 修复popup.html..."
     if [ -f "dist/src/popup/index.html" ]; then
         mv "dist/src/popup/index.html" "dist/popup.html"
+        rm -r "dist/src/"
         echo "✅ popup.html 已创建"
     fi
     

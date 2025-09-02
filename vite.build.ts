@@ -55,8 +55,6 @@ const getBuildConfig = (input: Record<string, string>) => defineConfig({
       '@': resolve(__dirname, 'src')
     }
   },
-  // 复制图标文件
-  publicDir: 'icons',
   // 确保CSS文件被复制
   css: {
     postcss: './postcss.config.js'
