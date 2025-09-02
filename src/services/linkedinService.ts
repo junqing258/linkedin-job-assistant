@@ -1,16 +1,18 @@
 import { LinkedInProfile, SearchQuery, ExperienceRange } from '@/types';
 
+import assistantContainerHtml from './assistantContainer.html?raw';
+
 class LinkedInService {
   private getSearchForm(): HTMLFormElement | null {
-    return document.querySelector('form[data-control-name="search_form"]') || 
-           document.querySelector('form[role="search"]') ||
-           document.querySelector('form');
+    return document.querySelector('form[data-control-name="search_form"]') ||
+      document.querySelector('form[role="search"]') ||
+      document.querySelector('form');
   }
 
   private getSearchInput(): HTMLInputElement | null {
     return document.querySelector('input[placeholder*="搜索"]') ||
-           document.querySelector('input[type="search"]') ||
-           document.querySelector('input[name="keywords"]');
+      document.querySelector('input[type="search"]') ||
+      document.querySelector('input[name="keywords"]');
   }
 
   async extractJobDescription(): Promise<string> {
@@ -34,10 +36,10 @@ class LinkedInService {
 
   async extractSearchResults(): Promise<LinkedInProfile[]> {
     const profiles: LinkedInProfile[] = [];
-    
+
     // 查找搜索结果中的候选人卡片
     const candidateCards = document.querySelectorAll('[data-testid*="candidate"], .search-result, .candidate-card');
-    
+
     candidateCards.forEach((card, index) => {
       try {
         const profile = this.parseCandidateCard(card);
@@ -58,7 +60,7 @@ class LinkedInService {
       const nameElement = card.querySelector('.name, .candidate-name, [data-testid*="name"]');
       const headlineElement = card.querySelector('.headline, .title, .position');
       const locationElement = card.querySelector('.location, .geo-location');
-      
+
       if (!nameElement) return null;
 
       const name = nameElement.textContent?.trim() || '';
@@ -158,7 +160,7 @@ class LinkedInService {
       if (query.keywords.length > 0) {
         searchInput.value = query.keywords.join(' ');
         searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-        
+
         // 触发change事件，确保LinkedIn页面能识别到输入变化
         searchInput.dispatchEvent(new Event('change', { bubbles: true }));
       }
@@ -167,12 +169,12 @@ class LinkedInService {
       this.fillLocationFilter(query.location);
       this.fillExperienceFilter(query.experience);
       this.fillSkillsFilter(query.skills);
-      
+
       console.log('搜索条件已应用:', query);
-      
+
       // 可选：自动提交搜索表单
       // searchForm.submit();
-      
+
     } catch (error) {
       console.error('应用搜索条件失败:', error);
       throw error;
@@ -181,7 +183,7 @@ class LinkedInService {
 
   private fillLocationFilter(location: string): void {
     if (!location) return;
-    
+
     try {
       // 查找位置输入框
       const locationInput = document.querySelector('input[placeholder*="位置"], input[placeholder*="Location"]') as HTMLInputElement;
@@ -197,7 +199,7 @@ class LinkedInService {
 
   private fillExperienceFilter(experience: ExperienceRange): void {
     if (!experience || (experience.min === 0 && experience.max === 0)) return;
-    
+
     try {
       // 查找经验年限筛选器
       const experienceSelect = document.querySelector('select[name*="experience"], select[data-control-name*="experience"]') as HTMLSelectElement;
@@ -216,7 +218,7 @@ class LinkedInService {
 
   private fillSkillsFilter(skills: string[]): void {
     if (!skills || skills.length === 0) return;
-    
+
     try {
       // 查找技能筛选器
       const skillsInput = document.querySelector('input[placeholder*="技能"], input[placeholder*="Skills"]') as HTMLInputElement;
@@ -233,12 +235,12 @@ class LinkedInService {
   private mapExperienceToOption(experience: ExperienceRange): string | null {
     // 将经验范围映射到LinkedIn的选项值
     const { min, max } = experience;
-    
+
     if (min <= 1 && max <= 2) return '1-2';
     if (min <= 2 && max <= 5) return '2-5';
     if (min <= 5 && max <= 10) return '5-10';
     if (min >= 10) return '10+';
-    
+
     return null;
   }
 
@@ -246,52 +248,7 @@ class LinkedInService {
     // 注入助手UI到LinkedIn页面
     const assistantContainer = document.createElement('div');
     assistantContainer.id = 'linkedin-recruiter-assistant';
-    assistantContainer.innerHTML = `
-      <div class="assistant-panel" style="
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 350px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 10000;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      ">
-        <div class="assistant-header" style="
-          padding: 16px;
-          border-bottom: 1px solid #eee;
-          background: #f8f9fa;
-          border-radius: 8px 8px 0 0;
-        ">
-          <h3 style="margin: 0; color: #333; font-size: 16px;">
-            🤖 LinkedIn Recruiter Assistant
-          </h3>
-        </div>
-        <div class="assistant-content" style="padding: 16px;">
-          <div class="input-group" style="margin-bottom: 12px;">
-            <input type="text" id="assistant-input" placeholder="描述你的招聘需求..." style="
-              width: 100%;
-              padding: 8px 12px;
-              border: 1px solid #ddd;
-              border-radius: 4px;
-              font-size: 14px;
-            ">
-          </div>
-          <button id="assistant-optimize" style="
-            width: 100%;
-            padding: 8px 16px;
-            background: #0073b1;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-          ">优化搜索</button>
-        </div>
-      </div>
-    `;
+    assistantContainer.innerHTML = assistantContainerHtml;
 
     document.body.appendChild(assistantContainer);
 

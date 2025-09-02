@@ -14,9 +14,15 @@ function waitForPageLoad(): Promise<void> {
 }
 
 // 等待LinkedIn页面元素加载
-function waitForLinkedInElements(): Promise<void> {
+function waitForLinkedInElements(timeout: number = 3000): Promise<void> {
+  let startTime = Date.now();
   return new Promise((resolve) => {
     const checkElements = () => {
+      if (Date.now() - startTime > timeout) {
+        resolve();
+        return;
+      }
+
       // 检查是否在Recruiter页面
       if (window.location.href.includes('/recruiter/')) {
         // 等待一些关键元素出现
